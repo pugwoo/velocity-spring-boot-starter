@@ -41,6 +41,10 @@ public class VelocityAutoConfiguration {
 		Map<String, Object> velocityPropertiesMap = new HashMap<>();
 		velocityPropertiesMap.put(Velocity.ENCODING_DEFAULT, "UTF-8");
 		velocityPropertiesMap.put(Velocity.INPUT_ENCODING, "UTF-8");
+
+		velocityPropertiesMap.put("resource.loaders", "file,classpath");
+		velocityPropertiesMap.put("resource.loader.classpath.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+
 		bean.setVelocityPropertiesMap(velocityPropertiesMap);
 		return bean;
 	}
