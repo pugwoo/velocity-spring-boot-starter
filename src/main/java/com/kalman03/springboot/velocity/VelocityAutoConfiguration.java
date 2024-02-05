@@ -49,7 +49,11 @@ public class VelocityAutoConfiguration {
 	@ConditionalOnMissingBean(name = "velocityViewResolver")
 	@ConditionalOnProperty(name = "spring.velocity.enabled", matchIfMissing = true)
 	VelocityViewResolver velocityViewResolver(VelocityProperty velocityProperty) {
-		VelocityViewResolver resolver = new VelocityViewResolver(null, velocityProperty.getSuffix());
+		String suffix = velocityProperty.getSuffix();
+		if (suffix == null) {
+			suffix = ".vm";
+		}
+		VelocityViewResolver resolver = new VelocityViewResolver(null, suffix);
 		resolver.setOrder(Ordered.HIGHEST_PRECEDENCE + 100);
 		return resolver;
 	}
