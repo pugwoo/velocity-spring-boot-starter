@@ -42,8 +42,9 @@ public class VelocityAutoConfiguration {
 		velocityPropertiesMap.put(Velocity.ENCODING_DEFAULT, "UTF-8");
 		velocityPropertiesMap.put(Velocity.INPUT_ENCODING, "UTF-8");
 
-		velocityPropertiesMap.put("resource.loaders", "file,classpath");
-		velocityPropertiesMap.put("resource.loader.classpath.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+		bean.setPreferFileSystemAccess(false); // 不从文件系统加载，最大可能保证IDE模式和jar模式效果一致
+		velocityPropertiesMap.put("resource.loaders", "classpath"); // 只用类路径加载，不用file文件系统方式，最大可能保证IDE模式和jar模式效果一致
+		velocityPropertiesMap.put("resource.loader.classpath.class", "org.apache.velocity.spring.SpringResourceLoader"); // spring boot资源加载模式
 
 		bean.setVelocityPropertiesMap(velocityPropertiesMap);
 		return bean;
